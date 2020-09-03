@@ -27,44 +27,22 @@
  * POSSIBILITY OF SUCH DAMAGE.
  **/
 
-#if defined(__cpluplus) && __cpluplus >= 201103L
-#pragma once
-#endif
-
-#ifndef MEM_HPP
-#define MEM_HPP
-
 // -----------------------------------------------------------
 
 // ===========================================================
 // INCLUDES
 // ===========================================================
 
-// ===========================================================
-// API
-// ===========================================================
+// HEADER
+#ifndef MEM_DUMMY_LOGGER_HPP
+#include "../../../../public/mem/utils/metrics/DummyLogger.hpp"
+#endif // !MEM_DUMMY_LOGGER_HPP
 
-#if defined( MEM_SHARED ) // Shared
-
-// Export
-#if defined( MEM_EXPORT )
-
-#define MEM_API __declspec( dllexport )
-
-#else
-
-// Import
-#define MEM_API __declspec( dllimport )
-
-#endif // MEM_EXPORT
-#elif defined( MEM_STATIC ) // Static
-#define MEM_API
-#else
-#define MEM_API
-#endif // Shared
+// Include C++ iostream
+#include <iostream>
 
 // ===========================================================
-// TYPES
+// mem::DummyLogger
 // ===========================================================
 
 namespace mem
@@ -72,49 +50,39 @@ namespace mem
 
     // -----------------------------------------------------------
 
-    class MEM_API MemoryEngine final
+    // ===========================================================
+    // CONSTRUCTOR & DESTRUCTOR
+    // ===========================================================
+
+    DummyLogger::DummyLogger() noexcept = default;
+    DummyLogger::~DummyLogger() noexcept = default;
+
+    // ===========================================================
+    // METHODS
+    // ===========================================================
+
+    void DummyLogger::printInfo(const char* const pMsg) noexcept
     {
+        std::cout << "INFO: " << pMsg << std::endl;
+    }
 
-        private:
+    void DummyLogger::printDebug(const char* const pMsg) noexcept
+    {
+        std::cout << "DEBUG: " << pMsg << std::endl;
+    }
 
-            // -----------------------------------------------------------
+    void DummyLogger::printWarning(const char* const pMsg) noexcept
+    {
+        std::cout << "WARNING: " << pMsg << std::endl;
+    }
 
-            // ===========================================================
-            // CONSTRUCTOR
-            // ===========================================================
-
-            explicit MemoryEngine() noexcept;
-
-            // ===========================================================
-            // DELETED
-            // ===========================================================
-
-            MemoryEngine(const MemoryEngine&) noexcept = delete;
-            MemoryEngine( MemoryEngine&&) noexcept = delete;
-            MemoryEngine& operator=(const MemoryEngine&) noexcept = delete;
-            MemoryEngine& operator=(MemoryEngine&&) noexcept = delete;
-
-            // -----------------------------------------------------------
-
-        public:
-
-            // -----------------------------------------------------------
-
-            // ===========================================================
-            // DESTRUCTOR
-            // ===========================================================
-
-            ~MemoryEngine() noexcept;
-
-            // -----------------------------------------------------------
-
-    }; /// mem::MemoryEngine
+    void DummyLogger::printError(const char* const pMsg) noexcept
+    {
+        std::cout << "ERROR: " << pMsg << std::endl;
+    }
 
     // -----------------------------------------------------------
 
 }
-using mem_Engine = mem::MemoryEngine;
 
 // -----------------------------------------------------------
-
-#endif // !MEM_HPP

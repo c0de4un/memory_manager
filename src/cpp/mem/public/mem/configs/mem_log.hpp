@@ -27,30 +27,27 @@
  * POSSIBILITY OF SUCH DAMAGE.
  **/
 
+#ifndef MEM_LOG_HPP
+#define MEM_LOG_HPP
+
+#ifndef MEM_DEBUG
+#error "mem_log.hpp - logging disabled !"
+#endif
+
 // -----------------------------------------------------------
 
 // ===========================================================
 // INCLUDES
 // ===========================================================
 
-// HEADER
-#define MEM_EXPORT 1
-#include "../public/mem.hpp"
+// Include C++ STL string
+#include <string>
 
-// ===========================================================
-// TYPES
-// ===========================================================
-
-namespace mem
-{
-
-    // -----------------------------------------------------------
-
-    MemoryEngine::MemoryEngine() noexcept = default;
-    MemoryEngine::~MemoryEngine() noexcept = default;
-
-    // -----------------------------------------------------------
-
-}
+// Include mem::DummyLogger
+#ifndef MEM_DUMMY_LOGGER_HPP
+#include "../utils/metrics/DummyLogger.hpp"
+#endif // !MEM_DUMMY_LOGGER_HPP
 
 // -----------------------------------------------------------
+
+#endif // !MEM_LOG_HPP
